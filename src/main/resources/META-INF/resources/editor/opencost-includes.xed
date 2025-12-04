@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xed:template xmlns:xed="http://www.mycore.de/xeditor"
+              xmlns:mir="http://www.mycore.de/mir"
+              xmlns:opencost="http://www.opencost.de">
+
+  <xed:template id="extension.opencost">
+    <fieldset>
+      <legend class="mir-fieldset-legend">
+        <xed:output i18n="component.mods.metaData.dictionary.opencost" />
+      </legend>
+      <div class="mir-fieldset-content">
+        <xed:bind xpath="mods:extension[@type='openCost']/opencost:data[@xsi:schemaLocation='https://opencost.de https://opencost.de/opencost.xsd']">
+
+          <xed:bind xpath="opencost:publication/opencost:cost_data">
+
+
+          <div class="card mb-3 costDataEntry">
+            <div class="card-body">
+              <h5>Cost Data</h5>
+    
+              <!-- part_of_contract -->
+              <div class="border p-3 mb-3">
+                <h6>Part of Contract</h6>
+                <xed:bind xpath="opencost:part_of_contract">
+    
+                  <div class="form-row">
+                    <xed:bind xpath="opencost:primary_identifier">
+                      <div class="form-group col-md-6">
+                        <xed:bind xpath="opencost:value">
+                          <label>Primary Identifier (Value)</label>
+                          <input type="text" class="form-control" />
+                        </xed:bind>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <xed:bind xpath="opencost:type">
+                          <label>Type</label>
+                          <select class="form-control">
+                            <option value="ESAC">ESAC</option>
+                          </select>
+                        </xed:bind>
+                      </div>
+                    </xed:bind>
+                  </div>
+  
+                  <div class="form-group">
+                    <label>Group ID</label>
+                    <input type="text" class="form-control" name="group_id[]" />
+                  </div>
+                </xed:bind>
+              </div>
+
+              <!-- invoice -->
+              <div class="border p-3">
+                <h6>Invoice</h6>
+                <xed:repeat xpath="opencost:invoice">
+    
+                <div class="form-group">
+                  <xed:bind xpath="opencost:invoice_number">
+                    <label>Invoice Number</label>
+                    <input type="text" class="form-control" />
+                  </xed:bind>
+                </div>
+    
+                <div class="form-group">
+                  <xed:bind xpath="opencost:creditor">
+                    <label>Creditor</label>
+                    <input type="text" class="form-control" />
+                  </xed:bind>
+                </div>
+    
+                <div class="form-row">
+                  <xed:bind xpath="opencost:dates">
+                    <div class="form-group col-md-6">
+                      <xed:bind xpath="opencost:invoice">
+                        <label>Invoice Date</label>
+                        <input type="date" class="form-control" />
+                      </xed:bind>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <xed:bind xpath="opencost:paid">
+                        <label>Paid Date</label>
+                        <input type="date" class="form-control" />
+                      </xed:bind>
+                    </div>
+                  </xed:bind>
+                </div>
+
+                <!-- amount_invoice -->
+                <div class="form-row">
+                  <xed:bind xpath="opencost:amount_invoice">
+                    <div class="form-group col-md-6">
+                      <xed:bind xpath="opencost:amount">
+                        <label>Invoice Amount</label>
+                        <input type="number" step="0.01" class="form-control" />
+                      </xed:bind>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <xed:bind xpath="opencost:currency">
+                        <label>Currency</label>
+                        <select class="form-control">
+                          <option value="EUR">EUR</option>
+                          <option value="USD">USD</option>
+                          <option value="GBP">GBP</option>
+                          <option value="CHF">CHF</option>
+                          <option value="CAD">CAD</option>
+                      </select>
+                    </xed:bind>
+                    </div>
+                  </xed:bind>
+                </div>
+
+                <!-- amounts_paid -->
+                <div class="amountsPaidWrapper">
+                  <h6>Amounts Paid</h6>
+    
+                  <xed:repeat xpath="opencost:amounts_paid">
+                  <div class="amountPaidEntry border p-3 mb-2">
+                    <div class="form-row">
+                      <div class="form-group col-md-3">
+                        <label>Amount</label>
+                        <input type="number" step="0.01" class="form-control" name="amount_paid[]" />
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label>Currency</label>
+                        <select class="form-control" name="amount_paid_currency[]" >
+                        <option value="EUR">EUR</option>
+                        <option value="USD">USD</option>
+                        <option value="GBP">GBP</option>
+                        <option value="CHF">CHF</option>
+                        <option value="CAD">CAD</option>
+                      </select>
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label>Cost Type</label>
+                        <select class="form-control" name="cost_type[]">
+                        <option value="gold-oa">gold-oa</option>
+                        <option value="hybrid-oa">hybrid-oa</option>
+                        <option value="vat">vat*</option>
+                        <option value="colour charge">colour charge</option>
+                        <option value="cover charge">cover charge</option>
+                        <option value="page charge">page charge</option>
+                        <option value="permission">permission</option>
+                        <option value="publication charge">publication charge</option>
+                        <option value="reprint">reprint</option>
+                        <option value="submission fee">submission fee</option>
+                        <option value="payment fee">payment fee</option>
+                        <option value="other">other</option>
+                      </select>
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label>VAT</label>
+                        <input type="number" step="0.01" class="form-control" name="vat[]" />
+                      </div>
+                    </div>
+                    <mir:help-pmud help-text="{i18n:mir.help.extension.characteristics}" pmud="true" />
+                  </div>
+                </xed:repeat>
+              </div>
+              <mir:help-pmud help-text="{i18n:mir.help.extension.characteristics}" pmud="true" />
+            </xed:repeat>
+          </div>
+
+        </div>
+      </div>
+
+          </xed:bind>
+        </xed:bind>
+      </div>
+    </fieldset>
+  </xed:template>
+
+  <xed:template id="cleanup-rules-opencost">
+    <xed:cleanup-rule xpath="//mods:extension[@type='openCost']" relevant-if="string-length(opencost:data/opencost:publication/opencost:cost_data/opencost:part_of_contract/opencost:primary_identifier/opencost:value) &gt; 0" />
+  </xed:template>
+  
+  <xed:modify ref="admin.fields">
+    <xed:include ref="extension.opencost" after="comment.complex" />
+    <xed:include ref="cleanup-rules-opencost" after="cleanup-rules" />
+  </xed:modify>
+</xed:template>
