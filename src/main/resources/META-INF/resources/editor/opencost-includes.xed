@@ -118,11 +118,15 @@
                   <div class="amountPaidEntry border p-3 mb-2">
                     <div class="form-row">
                       <div class="form-group col-md-3">
+                        <!-- FIXME Local Amount statt amount? -->
                         <label>Amount</label>
+                        <!-- FIXME amount statt amount_paid (amount_paid = Klammerelement)? -->
                         <input type="number" step="0.01" class="form-control" name="amount_paid[]" />
                       </div>
                       <div class="form-group col-md-3">
+                        <!-- FIXME Local Currency statt Currency? -->
                         <label>Currency</label>
+                        <!-- FIXME currency statt amount_paid_currency? -->
                         <select class="form-control" name="amount_paid_currency[]" >
                         <option value="EUR">EUR</option>
                         <option value="USD">USD</option>
@@ -130,6 +134,22 @@
                         <option value="CHF">CHF</option>
                         <option value="CAD">CAD</option>
                       </select>
+                      </div>
+
+                      <div class="form-group col-md-3">
+                        <label>Original Amount</label>
+                        <input type="number" step="0.01" class="form-control" name="original_amount[]" />
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label>Original Currency</label>                        
+                        <select class="form-control" name="original_currency[]" >
+                        <option value="EUR">EUR</option>
+                        <option value="USD">USD</option>
+                        <option value="GBP">GBP</option>
+                        <option value="CHF">CHF</option>
+                        <option value="CAD">CAD</option>
+                      </select>
+
                       </div>
                       <div class="form-group col-md-3">
                         <label>Cost Type</label>
@@ -151,6 +171,80 @@
                       <div class="form-group col-md-3">
                         <label>VAT</label>
                         <input type="number" step="0.01" class="form-control" name="vat[]" />
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label>Payment Status</label>
+                        <select class="form-control" name="payment_status[]">
+                        <option value="payment instructed">payment instructed</option>
+                        <option value="payment completed">payment completed</option>
+                        <option value="in progress">in progress</option>
+                        <option value="processing completed">processing completed</option>
+                        <option value="cancelled">cancelled</option>
+                        <option value="invoice requested">invoice requested</option>
+                      </select>
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label>Payment Method</label>
+                        <select class="form-control" name="payment_method[]">
+                        <option value="credit card + specification of the credit card">credit card + specification of the credit card</option>
+                        <option value="debit card + specification of the debit card">debit card + specification of the debit card</option>
+                        <option value="payment on account">payment on account</option>
+                        <option value="direct debit">direct debit</option>
+                        <option value="prepayment">prepayment</option>
+                        <option value="prepaid card">prepaid card</option>
+                        <option value="voucher">voucher</option>
+                        <option value="bank transfer">bank transfer</option>
+                      </select>
+                      </div>
+                       </div>
+                      <div class="form-group col-md-3">
+                        <label>Payment Model</label>
+                        <select class="form-control" name="payment_model[]">
+                        <option value="article-based">article-based</option>
+                        <option value="contract-based">contract-based</option>
+                      </select>
+                      </div>
+                      <div class="form-group">
+                        <xed:bind xpath="opencost:paying_unit">
+                          <label>Paying Unit</label>
+                          <input type="text" class="form-control" />
+                        </xed:bind>
+                      </div>
+                      <div class="form-group">
+                        <xed:bind xpath="opencost:paying_unit">
+                          <label>Paying Unit</label>
+                          <input type="text" class="form-control" />
+                        </xed:bind>
+                      </div>
+                      <div class="form-group">
+                        <xed:bind xpath="opencost:cost_centre">
+                          <label>Cost Centre</label>
+                          <input type="text" class="form-control" />
+                        </xed:bind>
+                      </div>
+                      <div class="form-group">
+                        <xed:bind xpath="opencost:gl_account">
+                          <label>GL Account</label>
+                          <input type="text" class="form-control" />
+                        </xed:bind>
+                      </div>
+                      <div class="form-group">
+                        <xed:bind xpath="opencost:transfer_reference">
+                          <label>Transfer Reference</label>
+                          <input type="text" class="form-control" />
+                        </xed:bind>
+                      </div>
+                      <div class="form-group">
+                        <xed:bind xpath="opencost:comment">
+                          <label>Comment</label>
+                          <input type="text" class="form-control" />
+                        </xed:bind>
+                      </div>
+                      <div class="form-group">
+                        <xed:bind xpath="opencost:processing_date">
+                          <label>Processing Date</label>
+                          <input type="text" class="form-control" />
+                        </xed:bind>
                       </div>
                     </div>
                     <mir:help-pmud help-text="{i18n:mir.help.extension.characteristics}" pmud="true" />
