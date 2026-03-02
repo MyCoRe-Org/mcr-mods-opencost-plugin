@@ -12,8 +12,36 @@
       <div class="mir-fieldset-content">
         <xed:bind xpath="mods:extension[@type='openCost']/opencost:data[@xsi:schemaLocation='https://opencost.de https://opencost.de/opencost.xsd']">
 
-          <xed:bind xpath="opencost:publication/opencost:cost_data">
+          <div class="form-group">
+            <xed:bind xpath="opencost:manuscript_ID">
+              <label>Manuscript ID</label>
+              <input type="text" class="form-control" />
+            </xed:bind>
+          </div>
+          <div class="form-group">
+            <xed:bind xpath="opencost:journal_categories">
+              <label>Journal Categories</label>
+              <input type="text" class="form-control" />
+            </xed:bind>
+          </div>
+          <!-- Dreifachauswahl: true, false, empty -->
+          <div class="form-group">
+            <xed:bind xpath="opencost:eligibility">
+              <label>Eligibility</label>
+              <input type="text" class="form-control" />
+            </xed:bind>
+          </div>
+          <!-- Dreifachauswahl: true, false, empty -->
+          <!-- + Subkategorie? -->
+          <div class="form-group">
+            <xed:bind xpath="opencost:authorisation">
+              <label>Authorisation</label>
+              <input type="text" class="form-control" />
+            </xed:bind>
+          </div>
+          <!-- Dreifachauswahl: true, false, empty -->
 
+          <xed:bind xpath="opencost:publication/opencost:cost_data">
 
           <div class="card mb-3 costDataEntry">
             <div class="card-body">
