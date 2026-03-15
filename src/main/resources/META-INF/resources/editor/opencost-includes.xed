@@ -2,7 +2,7 @@
 
 <xed:template xmlns:xed="http://www.mycore.de/xeditor"
               xmlns:mir="http://www.mycore.de/mir"
-              xmlns:opencost="http://www.opencost.de">
+              xmlns:opencost="https://opencost.de">
 
   <xed:template id="extension.opencost">
     <fieldset>
@@ -10,7 +10,7 @@
         <xed:output i18n="component.mods.metaData.dictionary.opencost" />
       </legend>
       <div class="mir-fieldset-content">
-        <xed:bind xpath="mods:extension[@type='openCost']/opencost:data[@xsi:schemaLocation='https://opencost.de https://opencost.de/opencost.xsd']">
+        <xed:bind xpath="mods:extension[@type='openCost']/opencost:data[@xsi:schemaLocation='https://opencost.de https://opencost.de/opencost_intern.xsd']">
 
           <xed:bind xpath="opencost:publication/opencost:cost_data">
 
