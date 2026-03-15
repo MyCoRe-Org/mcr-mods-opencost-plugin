@@ -31,10 +31,10 @@ elementFormDefault="qualified">
         <xs:complexContent>
             <xs:restriction base="publication_type">
                 <xs:all>
-                    <xs:element name="primary_identifier" type="publication_primary_identifier" />
+                    <xs:element name="primary_identifier" type="publication_primary_identifier" minOccurs="0" />
                     <xs:element name="secondary_identifiers" type="publication_secondary_identifiers" minOccurs="0" />
-                    <xs:element name="institution" type="institution_type" />
-                    <xs:element name="publication_type" type="coar_publication_type" />
+                    <xs:element name="institution" type="institution_type" minOccurs="0" />
+                    <xs:element name="publication_type" type="coar_publication_type" minOccurs="0" />
                     <xs:element name="external_costsplitting" type="xs:boolean" minOccurs="0" />
                     <xs:element name="cost_data" type="publication_cost_data_type" />
 
