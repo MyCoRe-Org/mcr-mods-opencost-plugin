@@ -64,19 +64,79 @@
         <xed:output i18n="component.mods.metaData.dictionary.opencost" />
       </legend>
       <div class="mir-fieldset-content">
+        <!-- [@xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'] -->
         <xed:bind xpath="mods:extension[@type='openCost']/opencost:data[@xsi:schemaLocation='https://opencost.de https://opencost.de/opencost_intern.xsd']">
 
-          <xed:bind xpath="opencost:publication/opencost:cost_data">
+
+          <xed:bind xpath="opencost:publication">
 
           <div class="card mb-3 costDataEntry">
             <div class="card-body">
-              <h5>Cost Data</h5>
+
+        <div class="form-row">
+          <!-- ToDo: should be mods:identifier -->
+          <div class="form-group col-md-6">
+            <xed:bind xpath="opencost:manuscript_id">
+              <label>Manuscript ID</label>
+              <input type="text" class="form-control" />
+            </xed:bind>
+          </div>
+          
+          <!-- ToDo: check if we should use mods:classification here -->
+          <div class="form-group col-md-6">
+            <xed:bind xpath="opencost:categories">
+              <label>Journal Categories</label>
+              <input type="text" class="form-control" />
+            </xed:bind>
+          </div>
+        </div>
+        <div class="form-row">
+          <!-- ToDo: check if we should use mods:classification here -->
+          <!-- Dreifachauswahl: true, false, empty -->
+          <div class="form-group col-md-4">
+            <xed:bind xpath="opencost:eligible">
+              <label>Eligibility</label>
+              <select class="form-control">
+                <option value="">none</option>
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+            </xed:bind>
+          </div>
+          <!-- ToDo: check if we should use mods:classification here -->
+          <!-- Dreifachauswahl: true, false, empty -->
+          <!-- + Subkategorie? -->
+          <div class="form-group col-md-4">
+            <xed:bind xpath="opencost:authorisation">
+              <label>Authorisation</label>
+              <select class="form-control">
+                <option value="">none</option>
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+            </xed:bind>
+          </div>
+          <!-- Dreifachauswahl: true, false, empty -->
+          <!-- ToDo: check if we should use mods:classification here -->
+          <!-- Dreifachauswahl: true, false, empty -->
+          <div class="form-group col-md-4">
+            <xed:bind xpath="opencost:external_costsplitting">
+              <label>External Costsplitting</label>
+              <select class="form-control">
+                <option value="">none</option>
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+            </xed:bind>
+          </div>
+        </div>
+
+              <xed:bind xpath="opencost:cost_data">
 
               <!-- part_of_contract -->
-              <div class="border p-3 mb-3">
-                <h6>Part of Contract</h6>
                 <xed:bind xpath="opencost:part_of_contract">
 
+                  <!-- is mandatory if you choose group_id atm -->
                   <div class="form-row">
                     <xed:bind xpath="opencost:primary_identifier">
                       <div class="form-group col-md-6">
@@ -96,14 +156,32 @@
                     </xed:bind>
                   </div>
 
+                  <!-- TODO: Verlinkung zu Klassifikation oder MyCoRe-Objekten -->
+                  <!-- group_ID: Hier wird der Vertrag einer Einrichtung spezifiziert, über den die Publikation finanziert
+                  wird. Alle vereinbarten Verträge erscheinen in einer Auswahlliste. Zur exakten Referenzierung muss die
+                  Rechnungsperiode auswählbar sein, die durch eine eindeutige ID (group_id) gekennzeichnet wird. Diese ID
+                  fungiert als Verknüpfung zwischen Publikation und Vertrag. Group_ID und Rechnungsperiode würden also bei
+                  der Vertragsentität festgelegt und der zu einer Publikation entsprechende Vetrag (die spezifische
+                  Rechnungsperiode) würde hier vermutlich in dem Feld "Group_ID" ausgewählt. Den Identifier des Vertrags
+                  müsste man dann bei der Publikation nicht auch noch anzeigen. -->
                   <div class="form-group">
                     <xed:bind xpath="opencost:group_id">
-                      <label>Group ID</label>
-                      <input type="text" class="form-control" />
+                      <label>Part of Contract</label>
+                      <select class="form-control form-control-sm">
+                        <option value="">(please choose)</option>
+                        <option value="ACS 2025">ACS 2025</option>
+                        <option value="IOP 2023">IOP 2023</option>
+                        <option value="IOP 2024">IOP 2024</option>
+                        <option value="IOP 2025">IOP 2025</option>
+                        <option value="DEAL: Wiley 2024">DEAL: Wiley 2024</option>
+                        <option value="DEAL: Wiley 2025">DEAL: Wiley 2025</option>
+                        <option value="DEAL: Wiley 2026">DEAL: Wiley 2026</option>
+                        <option value="Optica 2024">Optica 2024</option>
+                        <option value="Optica 2025">Optica 2025</option>
+                      </select>
                     </xed:bind>
                   </div>
                 </xed:bind>
-              </div>
 
               <!-- invoice -->
               <div class="border p-3">
@@ -112,7 +190,7 @@
                   <!-- Invoice Header -->
                   <div class="form-group row opencost__invoice">
                     <label class="col-md-9 col-form-label">
-                      <h6>Invoice</h6>
+                      <h5>Invoice</h5>
                     </label>
                     <mir:help-pmud
                       help-text="{i18n:mir.help.opencost.invoice}" pmud="true" />
@@ -175,29 +253,35 @@
                           </div>
                         </xed:bind>
 
+                        <!-- div class="form-group col-md-2">
+                          <xed:bind xpath="opencost:comment">
+                            <label>Comment</label>
+                            <input type="text" class="form-control form-control-sm" />
+                          </xed:bind>
+                        </div -->
                       </div>
 
                       <!-- amounts_paid table-->
-                      <h6 class="mt-3">Amounts Paid</h6>
+                      <h5 class="mt-3">Amounts Paid</h5>
                       <div class="table-responsive">
 
                         <table class="table table-sm table-bordered opencost table-borderless">
                           <thead class="thead-dark">
                             <tr>
-                              <th>Amount</th>
-                              <th>Currency</th>
+                              <th>Loc Amo</th>
+                              <th>Loc Curr</th>
                               <th>Cost Type</th>
                               <th>VAT</th>
                               <th>Status</th>
                               <th>Method</th>
                               <th>Model</th>
-                              <th>Orig A.</th>
-                              <th>Orig C.</th>
+                              <th>Ori Amo</th>
+                              <th>Ori Curr</th>
                               <th>Paying Unit</th>
                               <th>Cost Centre</th>
-                              <th>GL</th>
-                              <th>Reference</th>
-                              <th>P. Date</th>
+                              <th>General Ledger Account</th>
+                              <th>Transfer</th>
+                              <th>Payment Date</th>
                               <th>Comment</th>
                               <th></th>
                             </tr>
@@ -216,11 +300,11 @@
                                 <td class="opencost__currency">
                                   <xed:bind xpath="opencost:currency">
                                     <select class="form-control form-control-sm">
-                                      <option>EUR</option>
-                                      <option>USD</option>
-                                      <option>GBP</option>
-                                      <option>CHF</option>
-                                      <option>CAD</option>
+                                      <option value="EUR">EUR</option>
+                                      <option value="USD">USD</option>
+                                      <option value="GBP">GBP</option>
+                                      <option value="CHF">CHF</option>
+                                      <option value="CAD">CAD</option>
                                     </select>
                                   </xed:bind>
                                 </td>
@@ -228,18 +312,19 @@
                                 <td class="opencost__cost_type">
                                   <xed:bind xpath="opencost:cost_type">
                                     <select class="form-control form-control-sm">
-                                      <option>gold-oa</option>
-                                      <option>hybrid-oa</option>
-                                      <option>vat</option>
-                                      <option>colour charge</option>
-                                      <option>cover charge</option>
-                                      <option>page charge</option>
-                                      <option>permission</option>
-                                      <option>publication charge</option>
-                                      <option>reprint</option>
-                                      <option>submission fee</option>
-                                      <option>payment fee</option>
-                                      <option>other</option>
+                                      <option value="">(please choose)</option>
+                                      <option value="gold-oa">gold-oa</option>
+                                      <option value="hybrid-oa">hybrid-oa</option>
+                                      <option value="vat">vat</option>
+                                      <option value="colour charge">colour charge</option>
+                                      <option value="cover charge">cover charge</option>
+                                      <option value="page charge">page charge</option>
+                                      <option value="permission">permission</option>
+                                      <option value="publication charge">publication charge</option>
+                                      <option value="reprint">reprint</option>
+                                      <option value="submission fee">submission fee</option>
+                                      <option value="payment fee">payment fee</option>
+                                      <option value="other">other</option>
                                     </select>
                                   </xed:bind>
                                 </td>
@@ -253,12 +338,13 @@
                                 <td class="opencost__payment_status">
                                   <xed:bind xpath="opencost:payment_status">
                                     <select class="form-control form-control-sm">
-                                      <option>payment instructed</option>
-                                      <option>payment completed</option>
-                                      <option>in progress</option>
-                                      <option>processing completed</option>
-                                      <option>cancelled</option>
-                                      <option>invoice requested</option>
+                                      <option value="">(please choose)</option>
+                                      <option value="payment instructed">payment instructed</option>
+                                      <option value="payment completed">payment completed</option>
+                                      <option value="in progress">in progress</option>
+                                      <option value="processing completed">processing completed</option>
+                                      <option value="cancelled">cancelled</option>
+                                      <option value="invoice requested">invoice requested</option>
                                     </select>
                                   </xed:bind>
                                 </td>
@@ -266,14 +352,15 @@
                                 <td class="opencost__payment_method">
                                   <xed:bind xpath="opencost:payment_method">
                                     <select class="form-control form-control-sm">
-                                      <option>credit card</option>
-                                      <option>debit card</option>
-                                      <option>payment on account</option>
-                                      <option>direct debit</option>
-                                      <option>prepayment</option>
-                                      <option>prepaid card</option>
-                                      <option>voucher</option>
-                                      <option>bank transfer</option>
+                                      <option value="">(please choose)</option>
+                                      <option value="credit card">credit card</option>
+                                      <option value="debit card">debit card</option>
+                                      <option value="payment on account">payment on account</option>
+                                      <option value="direct debit">direct debit</option>
+                                      <option value="prepayment">prepayment</option>
+                                      <option value="prepaid card">prepaid card</option>
+                                      <option value="voucher">voucher</option>
+                                      <option value="bank transfer">bank transfer</option>
                                     </select>
                                   </xed:bind>
                                 </td>
@@ -281,8 +368,8 @@
                                 <td class="opencost__payment_model">
                                   <xed:bind xpath="opencost:payment_model">
                                     <select class="form-control form-control-sm">
-                                      <option>article-based</option>
-                                      <option>contract-based</option>
+                                      <option value="article-based">article-based</option>
+                                      <option value="contract-based">contract-based</option>
                                     </select>
                                   </xed:bind>
                                 </td>
@@ -296,11 +383,11 @@
                                 <td class="opencost__original_currency">
                                   <xed:bind xpath="opencost:original_currency">
                                     <select class="form-control form-control-sm">
-                                      <option>EUR</option>
-                                      <option>USD</option>
-                                      <option>GBP</option>
-                                      <option>CHF</option>
-                                      <option>CAD</option>
+                                      <option value="EUR">EUR</option>
+                                      <option value="USD">USD</option>
+                                      <option value="GBP">GBP</option>
+                                      <option value="CHF">CHF</option>
+                                      <option value="CAD">CAD</option>
                                     </select>
                                   </xed:bind>
                                 </td>
@@ -360,17 +447,19 @@
 
               </div>
 
+          </xed:bind>
+
             </div>
           </div>
+</xed:bind>
 
-          </xed:bind>
         </xed:bind>
       </div>
     </fieldset>
   </xed:template>
 
   <xed:template id="cleanup-rules-opencost">
-    <xed:cleanup-rule xpath="//mods:extension[@type='openCost']" relevant-if="string-length(opencost:data/opencost:publication/opencost:cost_data/opencost:part_of_contract/opencost:primary_identifier/opencost:value) &gt; 0" />
+    <xed:cleanup-rule xpath="//mods:extension[@type='openCost']" relevant-if="string-length(opencost:data/opencost:publication/opencost:cost_data/opencost:invoice/opencost:invoice_number) &gt; 0" />
   </xed:template>
 
   <xed:modify ref="admin.fields">
